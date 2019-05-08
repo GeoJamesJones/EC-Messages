@@ -1,0 +1,3 @@
+/Users/jame9353/Documents/temp_data/EC
+
+python EC-message-monitor.py -p '/Users/jame9353/Documents/temp_data/EC' -g 'https://wdcrealtime.esri.com:6143/geoevent/rest/receiver/ec-json-in'

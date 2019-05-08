@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<template key="YHZBovuUyAMFDKU+UMwamQ==" productVersion="10.7.0">
+    <geoEventServices>
+        <geoEventService name="8b7c54f3-211a-42f4-804d-b8b48d6918b8" label="ENTERPRISE CHALLENGE" description="" lineStyle="Diagonal" runningState="STARTED" statusDetails="">
+            <inputs>
+                <input ref="58633436-fb31-4401-820d-0cc2841c237a" label="ec-json-in" left="20" top="232" width="65" height="40"/>
+            </inputs>
+            <outputs>
+                <output ref="cfcdcc9c-43a8-40b5-8e2c-3684f583b5a3" label="ec-fs-out" left="372" top="207" width="60" height="40"/>
+            </outputs>
+            <nodes>
+                <node name="1ad5673a-2616-4ed7-8521-5f13f92c5ed4" label="Mapper" left="266" top="213" width="60" height="54">
+                    <processor uri="com.esri.ges.processor/FieldMapper/10.7.0">
+                        <properties>
+                            <property name="inputFields" type="String">security_class,rel_to,begin_position,end_position,sr,pos,x,y,observed_property,DetectionCode,geometry</property>
+                            <property name="outputFields" type="String">security_class,rel_to,begin_position,end_position,sr,pos,x,y,observed_property,detectioncode,geometry</property>
+                            <property name="inputGeoEventDefinition" type="GeoEventDefinition">ec-json-in</property>
+                            <property name="outputGeoEventDefinition" type="GeoEventDefinition">ENTERPRISE-CHALLENGE-Features</property>
+                        </properties>
+                    </processor>
+                </node>
+            </nodes>
+            <flow>
+                <from ref="58633436-fb31-4401-820d-0cc2841c237a" label="ec-json-in">
+                    <to ref="1ad5673a-2616-4ed7-8521-5f13f92c5ed4" label="Mapper"/>
+                </from>
+                <from ref="1ad5673a-2616-4ed7-8521-5f13f92c5ed4" label="Mapper">
+                    <to ref="cfcdcc9c-43a8-40b5-8e2c-3684f583b5a3" label="ec-fs-out"/>
+                </from>
+            </flow>
+            <geoEventsReceivedRateRange max="0.0" min="0.0"/>
+            <geoEventsSentRateRange max="0.0" min="0.0"/>
+        </geoEventService>
+    </geoEventServices>
+    <inputs>
+        <input url="https://wdcrealtime.esri.com:6143/geoevent/rest/receiver/ec-json-in" clusterCommand="START" connector="esri-receive-json-rest-in" connectorLabel="Receive JSON on a REST Endpoint" label="ec-json-in" name="58633436-fb31-4401-820d-0cc2841c237a" runningState="STARTED" statusDetails="NULL" supportsAllGeoEventDefinitions="true">
+            <adapter uri="com.esri.ges.adapter.inbound/Generic-JSON/10.7.0">
+                <properties>
+                    <property name="SpatialReferenceField" type="String"></property>
+                    <property name="YGeometryField" type="GeoEventDefinitionField">x</property>
+                    <property name="CreateGeoEventDefinition" type="Boolean">false</property>
+                    <property name="isLearningMode" type="Boolean">false</property>
+                    <property name="ExistingGeoEventDefinitionName" type="GeoEventDefinition">ec-json-in</property>
+                    <property name="ZGeometryField" type="GeoEventDefinitionField"></property>
+                    <property name="NewGeoEventDefinitionName" type="String">ec-json-in</property>
+                    <property name="asGeoJson" type="Boolean">false</property>
+                    <property name="BuildGeometryFromFields" type="Boolean">true</property>
+                    <property name="CustomDateFormat" type="String"></property>
+                    <property name="JsonObjectName" type="String"></property>
+                    <property name="XGeometryField" type="GeoEventDefinitionField">y</property>
+                </properties>
+            </adapter>
+            <geoEventDefinitionHistory>
+                <guid>09b09dde-e925-41ab-bbb7-8a39bafd9f5a</guid>
+                <guid>0bf0667d-8796-41a8-bf7c-51d0ac226cb6</guid>
+            </geoEventDefinitionHistory>
+            <geoEventsRateRange max="0.0" min="0.0"/>
+            <supportedGeoEventDefinitions/>
+            <transport uri="com.esri.ges.transport.inbound/HTTP/10.7.0">
+                <properties>
+                    <property name="headers" type="String"></property>
+                    <property name="getRequestRawDataFieldName" type="String"></property>
+                    <property name="acceptableMimeTypesServerMode" type="String">application/json</property>
+                    <property name="clientURL" type="String"></property>
+                    <property name="httpAppendToEnd" type="String"></property>
+                    <property name="postContentType" type="String"></property>
+                    <property name="clientPostBody" type="String"></property>
+                    <property name="acceptableMimeTypesClientMode" type="String"></property>
+                    <property name="httpMethod" type="String">GET</property>
+                    <property name="httpTimeoutValue" type="Integer">30</property>
+                    <property name="useLongPolling" type="Boolean">false</property>
+                    <property name="clientURLProxy" type="String"></property>
+                    <property name="frequency" type="Integer">5</property>
+                    <property name="mode" type="String">SERVER</property>
+                    <property name="honorLastModified" type="Boolean">true</property>
+                    <property name="clientPostFrom" type="String">TEXT</property>
+                    <property name="clientPostParameters" type="String"></property>
+                    <property name="useClientURLProxy" type="Boolean">false</property>
+                    <property name="clientParameters" type="String"></property>
+                    <property name="getRequestIncludesRaw" type="Boolean">false</property>
+                </properties>
+            </transport>
+        </input>
+    </inputs>
+    <outputs>
+        <output clusterCommand="START" connector="esri-out-json-fs-add" connectorLabel="Add a Feature" label="ec-fs-out" name="cfcdcc9c-43a8-40b5-8e2c-3684f583b5a3" runningState="STARTED" statusDetails="NULL" supportsAllGeoEventDefinitions="true">
+            <adapter uri="com.esri.ges.adapter.outbound/JSON/10.7.0">
+                <properties>
+                    <property name="updateInterval" type="String">1</property>
+                    <property name="flattenEvents" type="Boolean">true</property>
+                    <property name="keepEventsUnique" type="Boolean">false</property>
+                    <property name="mimeType" type="String">application/json</property>
+                    <property name="prettyJson" type="Boolean">false</property>
+                </properties>
+            </adapter>
+            <geoEventDefinitionHistory>
+                <guid>09b09dde-e925-41ab-bbb7-8a39bafd9f5a</guid>
+                <guid>d3f997e6-efc8-4f85-9033-951e8590b1b2</guid>
+                <guid>0bf0667d-8796-41a8-bf7c-51d0ac226cb6</guid>
+                <guid>8fc16c5d-2e01-4f16-8e18-be0f776b679b</guid>
+            </geoEventDefinitionHistory>
+            <geoEventsRateRange max="0.0" min="0.0"/>
+            <supportedGeoEventDefinitions/>
+            <transport uri="com.esri.ges.transport.outbound/FeatureService/10.7.0">
+                <properties>
+                    <property name="datastore" type="ArcGISConnection">aa92b81d-b4f4-4216-895b-9b4ebaaf636e</property>
+                    <property name="maximumTransactionSize" type="Integer">500</property>
+                    <property name="featureLifeSpan" type="Integer">1440</property>
+                    <property name="serviceName" type="ArcGISFeatureService">ec_json_fs</property>
+                    <property name="updateOnly" type="Boolean">false</property>
+                    <property name="trackIDField" type="ArcGISField">security_class</property>
+                    <property name="layerIndex" type="ArcGISLayer">0</property>
+                    <property name="path" type="ArcGISFolder">/</property>
+                    <property name="cleanupTimeField" type="ArcGISDateTimeField">begin_position</property>
+                    <property name="cleanupFeatures" type="Boolean">false</property>
+                    <property name="cleanupFrequency" type="Integer">20</property>
+                    <property name="append" type="Boolean">true</property>
+                </properties>
+            </transport>
+        </output>
+    </outputs>
+    <geoEventDefinitions>
+        <geoEventDefinition guid="0bf0667d-8796-41a8-bf7c-51d0ac226cb6" name="ec-json-in" owner="auto-generated/com.esri.ges.adapter.inbound.Generic-JSON/10.7.0" accessType="editable">
+            <fieldDefinitions>
+                <fieldDefinition name="security_class" type="String" cardinality="One">
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="rel_to" type="String" cardinality="One">
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="begin_position" type="Date" cardinality="One">
+                    <fieldDefinitionTag>
+                        <name>TIME_START</name>
+                    </fieldDefinitionTag>
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="end_position" type="Date" cardinality="One">
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="sr" type="String" cardinality="One">
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="pos" type="String" cardinality="One">
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="x" type="Double" cardinality="One">
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="y" type="Double" cardinality="One">
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="observed_property" type="String" cardinality="One">
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="DetectionCode" type="String" cardinality="One">
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="geometry" type="Geometry" cardinality="One">
+                    <fieldDefinitionTag>
+                        <name>GEOMETRY</name>
+                    </fieldDefinitionTag>
+                    <fieldDefinitions/>
+                </fieldDefinition>
+            </fieldDefinitions>
+        </geoEventDefinition>
+        <geoEventDefinition guid="8fc16c5d-2e01-4f16-8e18-be0f776b679b" name="ENTERPRISE-CHALLENGE-Features" owner="james_jones" accessType="editable">
+            <fieldDefinitions>
+                <fieldDefinition name="security_class" type="String" cardinality="One">
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="rel_to" type="String" cardinality="One">
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="begin_position" type="Date" cardinality="One">
+                    <fieldDefinitionTag>
+                        <name>TIME_START</name>
+                    </fieldDefinitionTag>
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="end_position" type="Date" cardinality="One">
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="sr" type="String" cardinality="One">
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="pos" type="String" cardinality="One">
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="x" type="Double" cardinality="One">
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="y" type="Double" cardinality="One">
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="observed_property" type="String" cardinality="One">
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="detectioncode" type="String" cardinality="One">
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="objectid" type="Integer" cardinality="One">
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="globalid" type="String" cardinality="One">
+                    <fieldDefinitions/>
+                </fieldDefinition>
+                <fieldDefinition name="geometry" type="Geometry" cardinality="One">
+                    <fieldDefinitionTag>
+                        <name>GEOMETRY</name>
+                    </fieldDefinitionTag>
+                    <fieldDefinitions/>
+                </fieldDefinition>
+            </fieldDefinitions>
+        </geoEventDefinition>
+    </geoEventDefinitions>
+    <tags/>
+    <arcgisServerConnections>
+        <arcgisServerConnection accessType="editable" connectionType="PORTAL" label="James WDC Defense" name="aa92b81d-b4f4-4216-895b-9b4ebaaf636e" referer="https://172.31.9.78:6143/geoevent/admin/datastores/agsconnection/aa92b81d-b4f4-4216-895b-9b4ebaaf636e" token="kJg/YFW40B3Xkr0mQMLQ7YaBlNOV/1B4h0a1PmXTlc45zIBmDsBoQaxiLBLqd4r7XQeaWkbTHSSh+JQq8piM0IJ6bQupwLErS/5/HW2H7VVVYKWWw5IFQBssGyw7XdIY2OlB/FclTXWswHTe1XTmz3LKcNl6AqSNKn5mm9J9Yalr9bM1S1OucDmD8HXsvOg5SFaSszypS5N45CyxlJvmZY4yu/rjSDySsoYJ1qq/CabVuyGfz1kwZQT/Ip7Qyr8GH2oajmVZPR1e36gtgm6AH4YKyBSRQ8MMaSE1IFjIKxLzBaz1BHmPT6K/L+/kligMYWQ7oy35PGTKm1IuBkvLr1nt8kq4Mllj9lQipGJxZxM=" tokenConfigured="false" updateIntervalSec="60" url="https://wdcdefense.esri.com/portal/">
+            <properties>
+                <property name="agsconnection.webtier.username" type="String">james_jones</property>
+                <property name="agsconnection.webtier.password" type="Password">oNayuX9kc7P9p0ZJz0neJA==</property>
+            </properties>
+        </arcgisServerConnection>
+    </arcgisServerConnections>
+</template>
