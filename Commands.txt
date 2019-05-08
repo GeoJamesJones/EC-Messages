@@ -1,3 +1,5 @@
 /Users/jame9353/Documents/temp_data/EC
 
-python EC-message-monitor.py -p '/Users/jame9353/Documents/temp_data/EC' -g 'https://wdcrealtime.esri.com:6143/geoevent/rest/receiver/ec-json-in'
+python EC-message-monitor.py -p '/Users/jame9353/Documents/temp_data/EC' -g 'https://wdcrealtimeevents.esri.com:6143/geoevent/rest/receiver/ec-json-in'
+
+curl -X POST -H "Content-Type: application:json" -d '{"fuck you:"geoevent"}' https://wdcrealtime.esri.com:6143/geoevent/rest/receiver/ec-json-in

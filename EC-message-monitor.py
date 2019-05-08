@@ -3,7 +3,7 @@ import json
 import argparse
 import requests
 import time
-
+import urllib3
 import xmltodict
 
 def post_to_geoevent(json_data, geoevent_url):
@@ -11,13 +11,15 @@ def post_to_geoevent(json_data, geoevent_url):
         'Content-Type': 'application/json',
                 }
 
-    response = requests.post((geoevent_url), headers=headers, data=json_data)
+    response = requests.post((geoevent_url), headers=headers, data=json_data, verify=False)
 
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("-p", "--path", help="Path of XML Documents", required=True)
     parser.add_argument("-g", "--geoevent", help="GeoEvent Server URL", required=True)
     args = parser.parse_args()
+
+    urllib3.disable_warnings()
 
     before = dict([(f, None) for f in os.listdir(args.path)])
 
