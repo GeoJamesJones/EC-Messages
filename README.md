@@ -35,5 +35,5 @@ After getting the python installed and configured, run the following command:  <
 
 python EC-message-convert.py -p (path to where data will either be added or currently resides) -g (GeoEvent REST Endpoint) 
 
--p is the path to the data </br>
--g is the geoevent REST Endpoint, this can be found in the input from the Set up GeoEvent server section. </br>
+- p is the path to the data </br>
+- g is the geoevent REST Endpoint, this can be found in the input from the Set up GeoEvent server section. </br>
