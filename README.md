@@ -14,14 +14,14 @@ I do not recommend installing the full Anaconda distribution into the newly crea
 After conda environment is set up, change directory to where the script is unzipped: </br>
     cd (path to folder where script resides)
     
-Once in the directory where the script was installed, run the following command:
+Once in the directory where the script was installed, run the following command:</br>
     pip install -r requirements.txt
 
 ## sample startup script
 
-After getting the python 
+After getting the python installed and configured, run the following command:  </br>
 
-python EC-message-convert.py -p '/Users/jame9353/Box/EC19 MASINT/MASINT-Demodata/8-5/V6/obsCombined' -g 'https://wdcrealtime.esri.com:6143/geoevent/rest/receiver/ec-json-in' . 
+python EC-message-convert.py -p (path to where data will either be added or currently resides) -g (GeoEvent REST Endpoint) 
 
 -p is the path to the data </br>
 -g is the geoevent REST Endpoint </br>
